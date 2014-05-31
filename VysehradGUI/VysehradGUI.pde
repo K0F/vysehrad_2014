@@ -55,7 +55,7 @@ void startVideo(int num) {
 
 void killSignal() {
   OscMessage myOscMessage = new OscMessage("/control/exit");
-  myOscMessage.add(num);
+  myOscMessage.add(1);
   oscP5.send(myOscMessage);
 }
 
