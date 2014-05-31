@@ -29,10 +29,13 @@ void setup() {
   buttons.add(new Button(2, "Video 2", 100, 200, 200, H));
   buttons.add(new Button(3, "Video 3", 100, 300, 200, H));
   buttons.add(new Button(4, "Video 4", 100, 400, 200, H));
+  
+  
+  buttons.add(new Button(5, "kill video", 500, 400, 200, H));
 
 
 
-  textFont(createFont("SempliceRegular.ttf", 6, false));
+  textFont(createFont("SempliceRegular.ttf", 9, false));
 }
 
 
@@ -46,6 +49,12 @@ void draw() {
 
 void startVideo(int num) {
   OscMessage myOscMessage = new OscMessage("/control/start");
+  myOscMessage.add(num);
+  oscP5.send(myOscMessage);
+}
+
+void killSignal() {
+  OscMessage myOscMessage = new OscMessage("/control/exit");
   myOscMessage.add(num);
   oscP5.send(myOscMessage);
 }

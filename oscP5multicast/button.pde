@@ -20,7 +20,12 @@ class Button {
 
   void trigger() {
     sfade = fade = 1.0;
+    if(id<=4){
     startVideo(id);
+    }else{
+     if(id==5)
+      killSignal(); 
+    }
   }
 
   void draw() {
