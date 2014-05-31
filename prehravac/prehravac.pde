@@ -11,7 +11,7 @@ import java.io.*;
 OscP5 oscP5;
 
 void setup() {
-  size(200,200);
+  size(200,200,P2D);
   frameRate(25);
   /* create a new instance of oscP5 using a multicast socket. */
   oscP5 = new OscP5(this,"239.0.0.1",7777);
@@ -19,7 +19,21 @@ void setup() {
 
 boolean snd,rcv;
 
+
+void init(){
+
+  frame.removeNotify();
+  frame.setUndecorated(true);
+  frame.addNotify();
+  super.init();
+}
+
 void draw() {
+
+  if(frameCount<5){
+    frame.setLocation(0,0);
+  }
+
   background(0);
   fill(#ffcc00,127.0*(sin(frameCount/10.0)+1.0));
   noStroke();
@@ -108,7 +122,7 @@ void oscEvent(OscMessage theOscMessage) {
   if(theOscMessage.addrPattern().equals("/control/start")){
       runS("rm /tmp/ctl");
       runS("mkfifo /tmp/ctl");
-      runS("mplayer -slave -input file=/tmp/ctl -geometry 1024x768+0+0 -screenw 1024 -screenh 768 -quiet /home/kof/XFR_2013-07-17_1B_05.mp4");
+      runS("mplayer -vo gl2 -osdlevel 0 -slave -input file=/tmp/ctl -geometry 1024x768+0+0 -screenw 1024 -screenh 768 -quiet /home/kof/1.mp4");
     }
     
     if(theOscMessage.addrPattern().equals("/control/move")){
