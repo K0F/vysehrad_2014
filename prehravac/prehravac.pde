@@ -3,7 +3,7 @@
  * example shows how to send osc via a multicast socket.
  * what is a multicast? http://en.wikipedia.org/wiki/Multicast
  * ip multicast ranges and uses:
- * 224.0.0.0 - 224.0.0.255 Reserved for special “well-known” multicast addresses.
+ * 224.0.0.0 - 224.0.0.255 Reserved for special well-known multicast addresses.
  * 224.0.1.0 - 238.255.255.255 Globally-scoped (Internet-wide) multicast addresses.
  * 239.0.0.0 - 239.255.255.255 Administratively-scoped (local) multicast addresses.
  * oscP5 website at http://www.sojamo.de/oscP5
@@ -103,10 +103,18 @@ void mousePressed() {
 /* incoming osc message are forwarded to the oscEvent method. */
 void oscEvent(OscMessage theOscMessage) {
   rcv = true;
-  if(theOscMessage.addrPattern().equals("/control")){
-    runS("masskill mplayer");
-    runS("mplayer -geometry 1024x768+0+0 -screenw 1024 -screenh 768 -quiet /home/kof/XFR_2013-07-17_1B_05.mp4");
-  }
+  if(theOscMessage.addrPattern().equals("/control/start")){
+
+      runS("rm /tmp/ctl");
+      runS("mkfifo /tmp/ctl");
+  //    runS("masskill mplayer");
+      runS("mplayer -slave -input file=/tmp/ctl -geometry 1024x768+0+0 -screenw 1024 -screenh 768 -quiet /home/kof/XFR_2013-07-17_1B_05.mp4");
+    }
+    
+    if(theOscMessage.addrPattern().equals("/control/move")){
+      runS(sketchPath+"/move "+theOscMessage.get(0).intValue());
+    }
+  
   /* print the address pattern and the typetag of the received OscMessage */
   print("### received an osc message.");
   print(" addrpattern: "+theOscMessage.addrPattern());

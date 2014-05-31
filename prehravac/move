@@ -1,0 +1,2 @@
+#!/bin/bash
+echo seek $1 1 > /tmp/ctl
