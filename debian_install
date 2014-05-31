@@ -1,0 +1,1 @@
+apt-get install xserver-xorg mplayer x11-utils xvfb vim git xinit xrandr x11-xserver-utils xdotool
