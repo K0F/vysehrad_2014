@@ -18,18 +18,17 @@ class Button {
     sfade = fade = 0.0;
   }
 
-  void update() {
-    state = over();
-    if (mousePressed && over()) {
-      fade = 1.0;
-      startVideo(id);
-    }
+  void trigger() {
+    sfade = fade = 1.0;
+    startVideo(id);
   }
 
   void draw() {
+    
+    update();
 
-    fade *= 0.99;
-    sfade += (fade - sfade) / 100.0;
+    fade *= 0.95;
+    sfade += (fade - sfade) / 10.0;
 
     fill(lerpColor(#ffcc00, #ffffff, sfade));
 
@@ -43,7 +42,7 @@ class Button {
 
   boolean over() {
     if (mouseX>pos.x&&mouseX<pos.x+w&&mouseY>pos.y&&mouseY<pos.y+h) {
-      sfade = fade = 1.0;
+      trigger();
       return true;
     }
     else {
