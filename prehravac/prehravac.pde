@@ -1,12 +1,7 @@
 /**
- * oscP5multicast by andreas schlegel
- * example shows how to send osc via a multicast socket.
- * what is a multicast? http://en.wikipedia.org/wiki/Multicast
- * ip multicast ranges and uses:
  * 224.0.0.0 - 224.0.0.255 Reserved for special well-known multicast addresses.
  * 224.0.1.0 - 238.255.255.255 Globally-scoped (Internet-wide) multicast addresses.
  * 239.0.0.0 - 239.255.255.255 Administratively-scoped (local) multicast addresses.
- * oscP5 website at http://www.sojamo.de/oscP5
  */
 
 import oscP5.*;
@@ -16,15 +11,28 @@ import java.io.*;
 OscP5 oscP5;
 
 void setup() {
-  size(200,200);
+  size(200,200,P2D);
   frameRate(25);
-  /* create a new instance of oscP5 using a multicast socket. */
   oscP5 = new OscP5(this,"239.0.0.1",7777);
 }
 
 boolean snd,rcv;
 
+
+void init(){
+
+  frame.removeNotify();
+  frame.setUndecorated(true);
+  frame.addNotify();
+  super.init();
+}
+
 void draw() {
+
+  if(frameCount<5){
+    frame.setLocation(0,0);
+  }
+
   background(0);
   fill(#ffcc00,127.0*(sin(frameCount/10.0)+1.0));
   noStroke();
@@ -52,11 +60,11 @@ void runS(String _cmd){
 
   try {
 
-    // run the Unix "ps -ef" command
-    // using the Runtime exec method:
     Process p = Runtime.getRuntime().exec(_cmd);
+    
+    
+    
     /*
-
        BufferedReader stdInput = new BufferedReader(new 
        InputStreamReader(p.getInputStream()));
 
@@ -84,37 +92,39 @@ void runS(String _cmd){
 }
 
 
-void mousePressed() {
+void reply() {
   snd = true;
-  /* create a new OscMessage with an address pattern, in this case /test. */
   OscMessage myOscMessage = new OscMessage("/test");
-
-  /* add a value (an integer) to the OscMessage */
   myOscMessage.add(100);
-
-  /* send the OscMessage to the multicast group. 
-   * the multicast group netAddress is the default netAddress, therefore
-   * you dont need to specify a NetAddress to send the osc message.
-   */
   oscP5.send(myOscMessage);
 }
 
+void stop(){
+  runS("/home/kof/vysehrad/clean.sh");
+  super.stop();
+}
 
 /* incoming osc message are forwarded to the oscEvent method. */
 void oscEvent(OscMessage theOscMessage) {
   rcv = true;
+  
+  
   if(theOscMessage.addrPattern().equals("/control/start")){
-
+      runS("masskill mplayer");
       runS("rm /tmp/ctl");
       runS("mkfifo /tmp/ctl");
-  //    runS("masskill mplayer");
-      runS("mplayer -slave -input file=/tmp/ctl -geometry 1024x768+0+0 -screenw 1024 -screenh 768 -quiet /home/kof/XFR_2013-07-17_1B_05.mp4");
+      runS("mplayer -loop 0 -fixed-vo -vo xv -osdlevel 0 -slave -input file=/tmp/ctl -geometry 1024x768+0+0 -screenw 1024 -screenh 768 -quiet /home/kof/"+theOscMessage.get(0).intValue()+".mp4");
     }
     
     if(theOscMessage.addrPattern().equals("/control/move")){
       runS(sketchPath+"/move "+theOscMessage.get(0).intValue());
     }
   
+    if(theOscMessage.addrPattern().equals("/control/exit")){
+      stop();
+    }
+  
+
   /* print the address pattern and the typetag of the received OscMessage */
   print("### received an osc message.");
   print(" addrpattern: "+theOscMessage.addrPattern());
