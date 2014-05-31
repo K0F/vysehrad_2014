@@ -13,7 +13,6 @@ OscP5 oscP5;
 void setup() {
   size(200,200,P2D);
   frameRate(25);
-  /* create a new instance of oscP5 using a multicast socket. */
   oscP5 = new OscP5(this,"239.0.0.1",7777);
 }
 
@@ -61,11 +60,11 @@ void runS(String _cmd){
 
   try {
 
-    // run the Unix "ps -ef" command
-    // using the Runtime exec method:
     Process p = Runtime.getRuntime().exec(_cmd);
+    
+    
+    
     /*
-
        BufferedReader stdInput = new BufferedReader(new 
        InputStreamReader(p.getInputStream()));
 
@@ -93,24 +92,15 @@ void runS(String _cmd){
 }
 
 
-void mousePressed() {
+void reply() {
   snd = true;
-  /* create a new OscMessage with an address pattern, in this case /test. */
   OscMessage myOscMessage = new OscMessage("/test");
-
-  /* add a value (an integer) to the OscMessage */
   myOscMessage.add(100);
-
-  /* send the OscMessage to the multicast group. 
-   * the multicast group netAddress is the default netAddress, therefore
-   * you dont need to specify a NetAddress to send the osc message.
-   */
   oscP5.send(myOscMessage);
 }
 
 void stop(){
-
-    runS("/home/kof/vysehrad/clean.sh");
+  runS("/home/kof/vysehrad/clean.sh");
   super.stop();
 }
 
@@ -120,9 +110,10 @@ void oscEvent(OscMessage theOscMessage) {
   
   
   if(theOscMessage.addrPattern().equals("/control/start")){
+      runS("masskill mplayer");
       runS("rm /tmp/ctl");
       runS("mkfifo /tmp/ctl");
-      runS("mplayer -vo gl2 -osdlevel 0 -slave -input file=/tmp/ctl -geometry 1024x768+0+0 -screenw 1024 -screenh 768 -quiet /home/kof/1.mp4");
+      runS("mplayer -loop 0 -fixed-vo -vo xv -osdlevel 0 -slave -input file=/tmp/ctl -geometry 1024x768+0+0 -screenw 1024 -screenh 768 -quiet /home/kof/"+theOscMessage.get(0).intValue()+".mp4");
     }
     
     if(theOscMessage.addrPattern().equals("/control/move")){
