@@ -36,7 +36,7 @@ class Button {
 
     fill(0);
 
-    text(name, pos.x+5, pos.y+h-2);
+    text(name, pos.x+5, pos.y+(h/2)+4);
   }
 
   boolean over() {

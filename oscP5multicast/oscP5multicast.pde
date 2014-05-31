@@ -1,12 +1,7 @@
 /**
- * oscP5multicast by andreas schlegel
- * example shows how to send osc via a multicast socket.
- * what is a multicast? http://en.wikipedia.org/wiki/Multicast
- * ip multicast ranges and uses:
- * 224.0.0.0 - 224.0.0.255 Reserved for special �well-known� multicast addresses.
+ * 224.0.0.0 - 224.0.0.255 Reserved for special well-known multicast addresses.
  * 224.0.1.0 - 238.255.255.255 Globally-scoped (Internet-wide) multicast addresses.
  * 239.0.0.0 - 239.255.255.255 Administratively-scoped (local) multicast addresses.
- * oscP5 website at http://www.sojamo.de/oscP5
  */
 
 import oscP5.*;
@@ -14,24 +9,30 @@ import netP5.*;
 
 OscP5 oscP5;
 
+int H = 60;
+
 ArrayList buttons;
 
+boolean sketchFullScreen() {
+  return true;
+}
+
 void setup() {
-  size(1024, 600);
+  size(displayWidth, displayHeight,P2D);
   frameRate(25);
   /* create a new instance of oscP5 using a multicast socket. */
   oscP5 = new OscP5(this, "239.0.0.1", 7777);
 
 
   buttons = new ArrayList();
-  buttons.add(new Button(1, "Video 1", 100, 100, 200, 20));
-  buttons.add(new Button(2, "Video 2", 100, 200, 200, 20));
-  buttons.add(new Button(3, "Video 3", 100, 300, 200, 20));
-  buttons.add(new Button(4, "Video 4", 100, 400, 200, 20));
+  buttons.add(new Button(1, "Video 1", 100, 100, 200, H));
+  buttons.add(new Button(2, "Video 2", 100, 200, 200, H));
+  buttons.add(new Button(3, "Video 3", 100, 300, 200, H));
+  buttons.add(new Button(4, "Video 4", 100, 400, 200, H));
 
 
 
-  textFont(createFont("SempliceRegular.ttf", 9, false));
+  textFont(createFont("SempliceRegular.ttf", 6, false));
 }
 
 
