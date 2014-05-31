@@ -1,12 +1,7 @@
 /**
- * oscP5multicast by andreas schlegel
- * example shows how to send osc via a multicast socket.
- * what is a multicast? http://en.wikipedia.org/wiki/Multicast
- * ip multicast ranges and uses:
  * 224.0.0.0 - 224.0.0.255 Reserved for special well-known multicast addresses.
  * 224.0.1.0 - 238.255.255.255 Globally-scoped (Internet-wide) multicast addresses.
  * 239.0.0.0 - 239.255.255.255 Administratively-scoped (local) multicast addresses.
- * oscP5 website at http://www.sojamo.de/oscP5
  */
 
 import oscP5.*;
