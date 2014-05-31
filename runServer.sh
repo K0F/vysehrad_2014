@@ -1,8 +1,11 @@
 #!/bin/bash
-masskill mplayer
-masskill Xvfb
+xinit &
+sleep 1
+export DISPLAY=:0.0
+rm /tmp/ctl || echo "Fifo is not there.. OK"
 Xvfb :1 -screen 0 1024x768x24 &
 export DISPLAY=:1.0
 cd /home/kof/vysehrad/prehravac
 /home/kof/bin/pp &
-mplayer -vo fbdev ~/test.mp4
+#mkfifo /tmp/ctl
+#mplayer -vo gl -fs -slave /tmp/ctl ~/test.mp4
