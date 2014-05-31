@@ -94,15 +94,20 @@ void mousePressed() {
   oscP5.send(myOscMessage);
 }
 
+void stop(){
+
+    runS("/home/kof/vysehrad/clean.sh");
+  super.stop();
+}
 
 /* incoming osc message are forwarded to the oscEvent method. */
 void oscEvent(OscMessage theOscMessage) {
   rcv = true;
+  
+  
   if(theOscMessage.addrPattern().equals("/control/start")){
-
       runS("rm /tmp/ctl");
       runS("mkfifo /tmp/ctl");
-  //    runS("masskill mplayer");
       runS("mplayer -slave -input file=/tmp/ctl -geometry 1024x768+0+0 -screenw 1024 -screenh 768 -quiet /home/kof/XFR_2013-07-17_1B_05.mp4");
     }
     
@@ -110,6 +115,11 @@ void oscEvent(OscMessage theOscMessage) {
       runS(sketchPath+"/move "+theOscMessage.get(0).intValue());
     }
   
+    if(theOscMessage.addrPattern().equals("/control/exit")){
+      stop();
+    }
+  
+
   /* print the address pattern and the typetag of the received OscMessage */
   print("### received an osc message.");
   print(" addrpattern: "+theOscMessage.addrPattern());
