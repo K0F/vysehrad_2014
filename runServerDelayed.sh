@@ -1,4 +1,7 @@
 #!/bin/bash
+PATH=$PATH:/home/kof/bin
+export PATH
+sleep 8
 xinit &
 sleep 1
 export DISPLAY=:0.0
