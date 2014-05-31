@@ -25,7 +25,6 @@ class Button {
 
   void draw() {
     
-    update();
 
     fade *= 0.95;
     sfade += (fade - sfade) / 10.0;
