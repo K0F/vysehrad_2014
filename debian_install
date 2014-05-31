@@ -1,2 +1,2 @@
-apt-get install mingetty xserver-xorg mplayer x11-utils xvfb vim git xinit xrandr x11-xserver-utils xdotool
+apt-get install zsh mingetty xserver-xorg mplayer x11-utils xvfb vim git xinit xrandr pulseaudio x11-xserver-utils xdotool
 apt-get build-dep mplayer
