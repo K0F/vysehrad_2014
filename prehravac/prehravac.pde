@@ -11,7 +11,7 @@ import java.io.*;
 OscP5 oscP5;
 
 void setup() {
-  size(200,200,P2D);
+  size(512,400,P2D);
   frameRate(25);
   oscP5 = new OscP5(this,"239.0.0.1",7777);
 }
@@ -121,7 +121,8 @@ void oscEvent(OscMessage theOscMessage) {
     }
   
     if(theOscMessage.addrPattern().equals("/control/exit")){
-      stop();
+      runS("masskill mplayer");
+      //stop();
     }
   
 
