@@ -14,18 +14,28 @@ import netP5.*;
 
 OscP5 oscP5;
 
+Button one;
+
 void setup() {
   size(1024,600);
   frameRate(25);
   /* create a new instance of oscP5 using a multicast socket. */
   oscP5 = new OscP5(this,"239.0.0.1",7777);
   
-  startVideo(0);
+  
+  one = new Button(1,"Video 1",100,100,200,20);
+  
+  
+  
+  textFont(createFont("SempliceRegular.ttf",9,false));
+  
 }
 
 
 void draw() {
-  background(127.0*(sin(frameCount/10.0)+1.0) );
+  background(0);
+  
+  one.draw();
 }
 
 void startVideo(int num){
@@ -35,19 +45,15 @@ void startVideo(int num){
 }
 
 
+/*
 void mousePressed() {
-  /* create a new OscMessage with an address pattern, in this case /test. */
+  
   OscMessage myOscMessage = new OscMessage("/control/move");
-  
-  /* add a value (an integer) to the OscMessage */
-  myOscMessage.add((int)map(mouseX,0,width,0,100));
-  
-  /* send the OscMessage to the multicast group. 
-   * the multicast group netAddress is the default netAddress, therefore
-   * you dont need to specify a NetAddress to send the osc message.
-   */
+ 
+  myOscMessage.add((int)map(mouseX,0,width,0,100)); 
   oscP5.send(myOscMessage);
 }
+*/
 
 
 /* incoming osc message are forwarded to the oscEvent method. */
