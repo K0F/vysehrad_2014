@@ -31,22 +31,29 @@ class Button {
   void draw() {
     
 
-    fade *= 0.95;
-    sfade += (fade - sfade) / 10.0;
+    fade *= 0.9;
+    sfade += (fade - sfade) / 5.0;
 
-    fill(lerpColor(#ffcc00, #ffffff, sfade));
+    fill(lerpColor(#444444, #ffffff, sfade));
 
 
-    rect(pos.x, pos.y, w, h); 
+    noStroke();
+    ellipse(pos.x, pos.y, w/2, w/2); 
 
-    fill(0);
+    fill(255);
 
-    text(name, pos.x+5, pos.y+(h/2)+4);
+    text(name, pos.x, pos.y);
   }
 
   boolean over() {
-    if (mouseX>pos.x&&mouseX<pos.x+w&&mouseY>pos.y&&mouseY<pos.y+h) {
+    if (dist(mouseX,mouseY,pos.x,pos.y) < w/2) {
       trigger();
+      if(id==1||id==2){
+        start = millis();
+        playing = true;
+      }else{
+        playing = false; 
+      }
       return true;
     }
     else {
