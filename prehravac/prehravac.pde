@@ -11,7 +11,7 @@ import java.io.*;
 OscP5 oscP5;
 
 void setup() {
-  size(512,400,P2D);
+  size(1280,720,P2D);
   frameRate(25);
   oscP5 = new OscP5(this,"239.0.0.1",7777);
 }
@@ -34,6 +34,12 @@ void draw() {
   }
 
   background(0);
+//stroke(255);
+//noFill();
+//rect(1,1,width-2,height-2);
+
+
+
   fill(#ffcc00,127.0*(sin(frameCount/10.0)+1.0));
   noStroke();
   rect(1,1,5,5);
@@ -49,6 +55,11 @@ void draw() {
     rect(10,1,5,5);
     snd = false;
   }
+
+
+  //testing only
+  fill(255);
+  ellipse(width/2,height/2,550,550);
 
 }
 
@@ -113,7 +124,7 @@ void oscEvent(OscMessage theOscMessage) {
       runS("masskill mplayer");
       runS("rm /tmp/ctl");
       runS("mkfifo /tmp/ctl");
-      runS("mplayer -loop 0 -fixed-vo -vo xv -osdlevel 0 -slave -input file=/tmp/ctl -geometry 1024x768+0+0 -screenw 1024 -screenh 768 -quiet /home/kof/"+theOscMessage.get(0).intValue()+".mp4");
+      runS("mplayer  -fixed-vo -vo xv -osdlevel 0 -slave -input file=/tmp/ctl -geometry 1280x720+0+0 -quiet /home/kof/"+theOscMessage.get(0).intValue()+".mp4");
     }
     
     if(theOscMessage.addrPattern().equals("/control/move")){
