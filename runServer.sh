@@ -4,6 +4,7 @@ sleep 1
 export DISPLAY=:0.0
 xset s off
 xset -dpms
+#xrandr --output VGA-0 --mode 1280x720 --output HDMI-0 --right-of VGA-0 --mode 1920x1080
 xdotool mousemove 1024 768
 rm /tmp/ctl || echo "Fifo is not there.. OK"
 cd /home/kof/vysehrad/prehravac
