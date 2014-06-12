@@ -58,8 +58,8 @@ void draw() {
 
 
   //testing only
-  fill(255);
-  ellipse(width/2,height/2,550,550);
+//  fill(255);
+//  ellipse(width/2,height/2,550,550);
 
 }
 
@@ -125,6 +125,7 @@ void oscEvent(OscMessage theOscMessage) {
       runS("rm /tmp/ctl");
       runS("mkfifo /tmp/ctl");
       runS("mplayer  -fixed-vo -vo xv -osdlevel 0 -slave -input file=/tmp/ctl -geometry 1280x720+0+0 -quiet /home/kof/"+theOscMessage.get(0).intValue()+".mp4");
+      runS("mplayer  -fixed-vo -vo xv -osdlevel 0 -slave -input file=/tmp/ctl -geometry 1920x1080+1280+0 -quiet /home/kof/"+theOscMessage.get(0).intValue()+1+".mp4");
     }
     
     if(theOscMessage.addrPattern().equals("/control/move")){
