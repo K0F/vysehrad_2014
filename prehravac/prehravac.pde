@@ -14,6 +14,10 @@ void setup() {
   size(1280,720,P2D);
   frameRate(25);
   oscP5 = new OscP5(this,"239.0.0.1",7777);
+
+  textFont(createFont("Capsuula", 48, true));
+  
+  textAlign(CENTER,CENTER);
 }
 
 boolean snd,rcv;
@@ -56,10 +60,12 @@ void draw() {
     snd = false;
   }
 
+  fill(255);
+  text("Vyšehrad text",width/2,height/2);
 
   //testing only
-//  fill(255);
-//  ellipse(width/2,height/2,550,550);
+  //fill(255);
+  //ellipse(width/2,height/2,550,550);
 
 }
 
