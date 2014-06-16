@@ -17,7 +17,7 @@ void setup() {
   frameRate(20);
   oscP5 = new OscP5(this,"239.0.0.1",7777);
 
-  textFont(createFont("Capsuula", 48, true));
+  textFont(createFont("Capsuula", 72, true));
 
   textAlign(CENTER,CENTER);
 }
@@ -62,13 +62,13 @@ void draw() {
     snd = false;
   }
 
-  fill(255);
-  text(text,width/2,height/2);
 
   //testing only
-  //fill(255);
-  //ellipse(width/2,height/2,550,550);
+  fill(255);
+  ellipse(width/2,height/2,550,550);
 
+  fill(0);
+  text(text,width/2,height/2);
 }
 
 String s = "";
@@ -134,13 +134,13 @@ void oscEvent(OscMessage theOscMessage) {
     runS("mkfifo /tmp/ctl");
 
 
-    if(theOscMessage.ge(0).intValue()==1){
-      runS("mplayer  -fixed-vo -vo xv -osdlevel 0 -slave -input file=/tmp/ctl -geometry 1920x1080+0+0 -quiet /home/kof/1.mp4");
-      runS("mplayer  -fixed-vo -vo xv -osdlevel 0 -slave -input file=/tmp/ctl -geometry 1280x720+1920+0 -quiet /home/kof/2.mp4");
-    }else if(theOscMessage.ge(0).intValue()==2){
+    if(theOscMessage.get(0).intValue()==1){
+      runS("mplayer  -fixed-vo -vo x11 -osdlevel 0 -slave -input file=/tmp/ctl -geometry 1920x1080+0+0 -quiet /home/kof/1.mp4");
+      runS("mplayer  -fixed-vo -vo x11 -osdlevel 0 -slave -input file=/tmp/ctl -geometry 1280x720+1920+0 -quiet /home/kof/2.mp4");
+    }else if(theOscMessage.get(0).intValue()==2){
 
-      runS("mplayer  -fixed-vo -vo xv -osdlevel 0 -slave -input file=/tmp/ctl -geometry 1920x1080+0+0 -quiet /home/kof/3.mp4");
-      runS("mplayer  -fixed-vo -vo xv -osdlevel 0 -slave -input file=/tmp/ctl -geometry 1280x720+1920+0 -quiet /home/kof/4.mp4");
+      runS("mplayer  -fixed-vo -vo x11 -osdlevel 0 -slave -input file=/tmp/ctl -geometry 1920x1080+0+0 -quiet /home/kof/3.mp4");
+      runS("mplayer  -fixed-vo -vo x11 -osdlevel 0 -slave -input file=/tmp/ctl -geometry 1280x720+1920+0 -quiet /home/kof/4.mp4");
 
 
     }
