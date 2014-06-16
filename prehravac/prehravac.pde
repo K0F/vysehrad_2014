@@ -64,6 +64,9 @@ void draw() {
 
 
   //testing only
+  
+  translate(0,-100);
+  
   fill(255);
   ellipse(width/2,height/2,550,550);
 
