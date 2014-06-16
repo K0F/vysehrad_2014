@@ -20,10 +20,10 @@ void setup(){
 
 void draw(){
 
-    if(frameCount==0)
-      frame.setLocation(0,0);
+    if(frameCount<10)
+      frame.setLocation(2000,0);
 
-    background(0);
+    background(255);
 
 
 
