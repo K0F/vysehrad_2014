@@ -137,7 +137,7 @@ void oscEvent(OscMessage theOscMessage) {
     if(theOscMessage.ge(0).intValue()==1){
       runS("mplayer  -fixed-vo -vo xv -osdlevel 0 -slave -input file=/tmp/ctl -geometry 1920x1080+0+0 -quiet /home/kof/1.mp4");
       runS("mplayer  -fixed-vo -vo xv -osdlevel 0 -slave -input file=/tmp/ctl -geometry 1280x720+1920+0 -quiet /home/kof/2.mp4");
-    }else if(theOscMessage.ge(0).intValue()==2)){
+    }else if(theOscMessage.ge(0).intValue()==2){
 
       runS("mplayer  -fixed-vo -vo xv -osdlevel 0 -slave -input file=/tmp/ctl -geometry 1920x1080+0+0 -quiet /home/kof/3.mp4");
       runS("mplayer  -fixed-vo -vo xv -osdlevel 0 -slave -input file=/tmp/ctl -geometry 1280x720+1920+0 -quiet /home/kof/4.mp4");
